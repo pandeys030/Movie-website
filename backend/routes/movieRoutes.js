@@ -63,8 +63,8 @@ router.delete('/:id', async (req, res) => {
 });
 
 module.exports = router;
-<<<<<<< HEAD
+ HEAD
  
 
-=======
->>>>>>> origin/master
+
+ origin/master
