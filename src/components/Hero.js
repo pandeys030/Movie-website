@@ -1,15 +1,14 @@
 import React from 'react';
-import './Hero.css'; // Add styles for hero component
+import './Hero.css';
 
 const Hero = ({ featuredMovie }) => {
   return (
-    <div 
-      className="hero" 
-      style={{ backgroundImage: `url(/poster/bg1.jpg)` }} // Use url() for the image
-    >
-      <div className="hero-overlay">
-        <h1>{featuredMovie.title}</h1>
-      </div>
+    <div className="hero">
+      <video className="hero-video" autoPlay loop muted>
+        <source src="/videos/featured-movie1.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+     
     </div>
   );
 };
