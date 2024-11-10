@@ -1,40 +1,24 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
+// server.js
+import cors from 'cors';
+import express from 'express';
+import connectDB from './config/db.js'; // Default import for connectDB
+import movieRoutes from './routes/movieRoutes.js'; // Import movie routes
+import myListRoutes from './routes/myListRoutes.js'; // Import my list routes
 
 const app = express();
 
 // Middleware
-app.use(cors());
-app.use(express.json());
+app.use(cors()); // Enable CORS for frontend requests
+app.use(express.json()); // Parse JSON data in the request body
+
+// API Routes
+app.use('/api/movies', movieRoutes); // Route for movie-related actions
+app.use('/api/my-list', myListRoutes); // Route for My List actions
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/movies', { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.error('MongoDB connection error:', err));
-
-// Movie model
-const Movie = mongoose.model('Movie', new mongoose.Schema({
-    title: String,
-    description: String,
-    releaseDate: Date,
-    rating: Number,
-    director: String,
-    poster: String,
-}));
-
-// API endpoint to get movies
-app.get('/api/movies', async (req, res) => {
-    try {
-        const movies = await Movie.find();
-        res.json(movies);
-    } catch (error) {
-        res.status(500).send(error);
-    }
-});
+connectDB();
 
 // Start the server
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(3001, () => {
+  console.log('Server is running on port 3001');
 });
